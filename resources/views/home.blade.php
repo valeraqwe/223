@@ -18,6 +18,5 @@
                class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center ml-3">Next
                 <i class="fas fa-arrow-right ml-2"></i></a>
         </div>
-
     </section>
 </x-app-layout>
