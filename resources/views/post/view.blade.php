@@ -29,7 +29,8 @@
         <div class="w-full flex pt-6">
             <div class="w-1/2">
                 @if($prev)
-                    <a href="{{route('view', $prev)}}" class="block w-full bg-white shadow hover:shadow-md text-left p-6">
+                    <a href="{{route('view', $prev)}}"
+                       class="block w-full bg-white shadow hover:shadow-md text-left p-6">
                         <p class="text-lg text-blue-800 font-bold flex items-center"><i
                                 class="fas fa-arrow-left pr-1"></i>
                             Previous</p>
@@ -47,5 +48,6 @@
         </div>
 
     </section>
+    <x-sidebar/>
 
 </x-app-layout>
