@@ -1,7 +1,7 @@
 <?php
 /** @var $posts Illuminate\Pagination\LengthAwarePaginator */
 ?>
-<x-app-layout meta-description="The Komar N.M. personal blog about ukrainian language">
+<x-app-layout :meta-title="'The Komar N.M. - Posts by category ' . $category->title" meta-description="By category description">
     <!-- Posts Section -->
     <section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
