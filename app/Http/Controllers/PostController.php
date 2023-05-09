@@ -62,7 +62,8 @@ class PostController extends Controller
                 ->setBindings([$user->id])
                 ->limit(3)
                 ->get();
-        } else {
+        } // Not authorized - Popular posts based on views
+        else {
             $recommendedPosts = Post::query()
                 ->leftJoin('post_views', 'posts.id', '=', 'post_views.post_id')
                 ->select('posts.*', DB::raw('COUNT(post_views.id) as view_count'))
@@ -73,12 +74,21 @@ class PostController extends Controller
                 ->limit(3)
                 ->get();
         }
-
-        // Not authorized - Popular posts based on views
-
         // Show recent categories with their latest posts
+        $categories = Category::query()
+            ->with(['posts' => function ($query) {
+                $query->orderByDesc('published_at')->limit(3);
+            }])
+            ->select('categories.*')
+            ->selectRaw('MAX(posts.published_at) as max_date')
+            ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
+            ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
+            ->orderByDesc('max_date')
+            ->groupBy('categories.id')
+            ->limit(5)
+            ->get();
 
-        return view('home', compact('latestPost', 'popularPosts', 'recommendedPosts'));
+        return view('home', compact('latestPost', 'popularPosts', 'recommendedPosts', 'categories'));
     }
 
     /**
