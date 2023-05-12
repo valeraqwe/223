@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $metaTitle ?: 'The Komar N.M. Blog' }}</title>
-    <meta name="author" content="The Komar N.M.">
+    <title>{{ $metaTitle ?: 'The Komar N.M Blog' }}</title>
+    <meta name="author" content="TheKomarNM">
     <meta name="description" content="{{ $metaDescription }}">
 
     <style>
@@ -21,14 +21,15 @@
 </head>
 <body class="bg-gray-50 font-family-karla">
 
+
 <!-- Text Header -->
 <header class="w-full container mx-auto">
     <div class="flex flex-col items-center py-12">
         <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="{{route('home')}}">
-            Komar Natalia blog
+            The Komar N.M. Blog
         </a>
         <p class="text-lg text-gray-600">
-            {{\App\Models\TextWidget::getTitle('header')}}
+            {{ \App\Models\TextWidget::getTitle('header') }}
         </p>
     </div>
 </header>
@@ -54,17 +55,21 @@
                        class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">{{$category->title}}</a>
                 @endforeach
                 <a href="{{route('about-us')}}" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">About
-                    Us</a>
+                    us</a>
             </div>
 
-            <div>
+            <div class="flex items-center">
+                <form method="get" action="{{route('search')}}">
+                    <input name="q" value="{{request()->get('q')}}"
+                           class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 font-medium"
+                           placeholder="Type and hit enter to search"/>
+                </form>
                 @auth
-
-                    <!-- Settings Dropdown -->
                     <div class="flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="hover:bg-blue-600 hover:text-white flex items-center rounded py-2 px-4 mx-2">
+                                <button
+                                    class="hover:bg-blue-600 hover:text-white flex items-center rounded py-2 px-4 mx-2">
                                     <div>{{ Auth::user()->name }}</div>
 
                                     <div class="ml-1">
@@ -97,17 +102,17 @@
                         </x-dropdown>
                     </div>
                 @else
-                    <a href="{{route('login')}}" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Login</a>
+                    <a href="{{route('login')}}"
+                       class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Login</a>
                     <a href="{{route('register')}}" class="bg-blue-600 text-white rounded py-2 px-4 mx-2">Register</a>
                 @endauth
             </div>
-
         </div>
     </div>
 </nav>
 
 
-<div class="container mx-auto flex flex-wrap py-6">
+<div class="container mx-auto py-6">
 
     {{ $slot }}
 
@@ -115,9 +120,10 @@
 
 <footer class="w-full border-t bg-white pb-12">
     <div class="w-full container mx-auto flex flex-col items-center">
-        <div class="uppercase py-6">&copy; komar_nm.com</div>
+        <div class="uppercase py-6">&copy; myblog.com</div>
     </div>
 </footer>
+
 @livewireScripts
 </body>
 </html>
