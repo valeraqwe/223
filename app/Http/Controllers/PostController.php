@@ -101,26 +101,31 @@ class PostController extends Controller
                 ->get();
         }
         // Show recent categories with their latest posts
-        $categories = Category::query()
-            ->with(['posts' => function ($query) {
-                $query->orderByDesc('published_at')->limit(3);
-            }])
-            ->select('categories.*')
-            ->selectRaw('MAX(posts.published_at) as max_date')
-            ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
-            ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
-            ->orderByDesc('max_date')
-            ->groupBy([
-                'categories.id',
-                'categories.title',
-                'categories.slug',
-                'categories.created_at',
-                'categories.updated_at',
-            ])
-            ->limit(5)
-            ->get();
+//        $categories = Category::query()
+//            ->with(['posts' => function ($query) {
+//                $query->orderByDesc('published_at')->limit(3);
+//            }])
+//            ->select('categories.*')
+//            ->selectRaw('MAX(posts.published_at) as max_date')
+//            ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
+//            ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
+//            ->orderByDesc('max_date')
+//            ->groupBy([
+//                'categories.id',
+//                'categories.title',
+//                'categories.slug',
+//                'categories.created_at',
+//                'categories.updated_at',
+//            ])
+//            ->limit(5)
+//            ->get();
 
-        return view('home', compact('latestPost', 'popularPosts', 'recommendedPosts', 'categories'));
+        return view('home', compact(
+            'latestPost',
+            'popularPosts',
+            'recommendedPosts',
+//            'categories'
+        ));
     }
 
     /**
