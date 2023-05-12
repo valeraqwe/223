@@ -40,7 +40,20 @@ class PostController extends Controller
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderByDesc('upvote_count')
-            ->groupBy('posts.id')
+            ->groupBy([
+                'posts.id',
+                'posts.title',
+                'posts.slug',
+                'posts.thumbnail',
+                'posts.body',
+                'posts.active',
+                'posts.published_at',
+                'posts.user_id',
+                'posts.created_at',
+                'posts.updated_at',
+                'posts.meta_title',
+                'posts.meta_description',
+            ])
             ->limit(5)
             ->get();
 
@@ -70,7 +83,20 @@ class PostController extends Controller
                 ->where('active', '=', 1)
                 ->whereDate('published_at', '<', Carbon::now())
                 ->orderByDesc('view_count')
-                ->groupBy('posts.id')
+                ->groupBy([
+                    'posts.id',
+                    'posts.title',
+                    'posts.slug',
+                    'posts.thumbnail',
+                    'posts.body',
+                    'posts.active',
+                    'posts.published_at',
+                    'posts.user_id',
+                    'posts.created_at',
+                    'posts.updated_at',
+                    'posts.meta_title',
+                    'posts.meta_description',
+                ])
                 ->limit(3)
                 ->get();
         }
@@ -84,7 +110,13 @@ class PostController extends Controller
             ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
             ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
             ->orderByDesc('max_date')
-            ->groupBy('categories.id')
+            ->groupBy([
+                'categories.id',
+                'categories.title',
+                'categories.slug',
+                'categories.created_at',
+                'categories.updated_at',
+            ])
             ->limit(5)
             ->get();
 

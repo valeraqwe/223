@@ -27,7 +27,7 @@ class Sidebar extends Component
             ->join('category_post', 'categories.id', '=', 'category_post.category_id')
             ->select('categories.title', 'categories.slug', DB::raw('count(*) as total'))
             ->groupBy([
-                'categories.id',
+                'categories.title', 'categories.slug'
             ])
             ->orderByDesc('total')
             ->get();
